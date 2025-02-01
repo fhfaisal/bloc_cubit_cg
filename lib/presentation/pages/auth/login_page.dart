@@ -1,9 +1,11 @@
+import 'package:cubit_bloc/utils/constants/sizes.dart';
+import 'package:cubit_bloc/utils/language/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/routes/app_router.dart';
+import '../../../core/routes/app_routes.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/auth/auth_state.dart';
 
@@ -12,11 +14,12 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc=AppLocalizations.of(context)!;
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Login")),
+      appBar: AppBar(title: Text(loc.login)),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
@@ -31,8 +34,11 @@ class LoginPage extends StatelessWidget {
         },
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(AppSizes.defaultSpace24),
             child: Column(
+              spacing: AppSizes.spaceBtwInputFields12,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextField(
                   controller: emailController,
@@ -43,7 +49,6 @@ class LoginPage extends StatelessWidget {
                   decoration: const InputDecoration(labelText: "Password"),
                   obscureText: true,
                 ),
-                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     context.read<AuthCubit>().signIn(
@@ -51,7 +56,7 @@ class LoginPage extends StatelessWidget {
                       passwordController.text,
                     );
                   },
-                  child: const Text("Login"),
+                  child: Text(loc.login),
                 ),
               ],
             ),

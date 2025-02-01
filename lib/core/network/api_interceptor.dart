@@ -21,10 +21,6 @@ class ApiInterceptor extends Interceptor {
     super.onRequest(options, handler);
   }
 
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    super.onResponse(response, handler);
-  }
 
   @override
   Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
