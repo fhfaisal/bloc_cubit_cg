@@ -23,8 +23,8 @@ class AppIconButtonTheme {
   static final darkIconButtonTheme = IconButtonThemeData(
     style: ButtonStyle(
       fixedSize: WidgetStateProperty.all(const Size.fromHeight(AppSizes.buttonHeight52)),
-      iconColor: WidgetStateProperty.all(AppColors.primary),
-      foregroundColor: WidgetStateProperty.all(AppColors.primary),
+      iconColor: WidgetStateProperty.all(AppColors.grey),
+      foregroundColor: WidgetStateProperty.all(AppColors.grey),
       shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
       //side: MaterialStateProperty.all(const BorderSide(color: AppColors.grey)),
       textStyle: WidgetStateProperty.all(const TextStyle(fontSize: 16, color: AppColors.primary, fontWeight: FontWeight.w600)),

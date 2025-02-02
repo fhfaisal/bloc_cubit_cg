@@ -5,12 +5,7 @@ class AppText {
 
 // OnBoarding Texts
   static const String skip = "Skip";
-  static const String onBoardingTitle1 = "Choose your product";
-  static const String onBoardingTitle2 = "Select Payment Method";
-  static const String onBoardingTitle3 = "Deliver at your door step";
-  static const String onBoardingSubTitle1 = "Welcome to a World of Limitless Choices - Your Perfect Product Awaits!";
-  static const String onBoardingSubTitle2 = "For Seamless Transactions, Choose Your Payment Path Your Convenience, Our Priority!";
-  static const String onBoardingSubTitle3 = "From Our Doorstep to Yours - Swift, Secure, and Contactless Delivery!";
+  static const String login = "login";
 
 // Authentication Form Text
   static const String firstName = "First Name";
@@ -33,6 +28,7 @@ class AppText {
   static const String verificationCode = "verificationCode";
   static const String resendEmail = "Resend Email";
   static const String resendEmailIn = "Resend email in";
+  static const String requiredFieldMsg = "Please fill up all the required field";
 
 // Authentication Headings Text
   static const String loginTitle = "Welcome back,";

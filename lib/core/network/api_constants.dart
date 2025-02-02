@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const String baseUrl = '';
+  static const String baseUrl = 'https://118.179.149.162:8812/creed/api';
   static const Duration connectTimeout = Duration(seconds: 15);
   static const Duration receiveTimeout = Duration(seconds: 15);
 
