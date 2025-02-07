@@ -38,50 +38,98 @@ further or proceed with additional features!
 -------------------------------******--------------------------------
 ## Project Structure
 -------------------------------******--------------------------------
-The project is organized into several directories to promote separation of concerns and
-maintainability. Below is a high-level overview of the directory structure:
 lib/
 │── core/
-│ ├── error/
-│ │ ├── exceptions.dart // Custom exceptions (e.g., ServerException)
-│ │ ├── failures.dart // Custom failure classes (e.g., ServerFailure)
-│ ├── network/
-│ │ ├── dio_config.dart // Dio configuration with SSL bypass (development only)
-│ ├── di/
-│ │ ├── injection_container.dart // Dependency Injection setup with GetIt
-│ ├── routes/
-│ │ ├── app_routes.dart // Route names constants
-│ │ ├── app_router.dart // GoRouter configuration with initial route determination
+│   ├── error/
+│   │   ├── exceptions.dart  // Custom exceptions (e.g., ServerException)
+│   │   ├── failures.dart  // Custom failure classes (e.g., ServerFailure)
+│   ├── network/
+│   │   ├── dio_config.dart  // Dio configuration with SSL bypass (development only)
+│   │   ├── api_client.dart
+│   │   ├── api_constants.dart
+│   │   ├── api_interceptor.dart
+│   │   ├── network_info.dart
+│   ├── di/
+│   │   ├── injection_container.dart  // Dependency Injection setup with GetIt
+│   ├── routes/
+│   │   ├── app_routes.dart  // Route names constants
+│   │   ├── app_router.dart  // GoRouter configuration with initial route determination
+│   ├── storage/
+│   │   ├── secure_storage.dart
 │
 │── data/
-│ ├── models/
-│ │ ├── user_model.dart // UserModel with JSON parsing and conversion to domain entity
-│ ├── sources/
-│ │ ├── auth_remote_data_source.dart // Remote API calls for authentication
-│ │ ├── auth_local_data_source.dart // Local caching using GetStorage
-│ ├── repositories/
-│ │ ├── auth_repository_impl.dart // Implementation of AuthRepository using remote & local sources
+│   ├── models/
+│   │   ├── user_model.dart  // UserModel with JSON parsing and conversion to domain entity
+│   ├── sources/
+│   │   ├── auth_remote_data_source.dart  // Remote API calls for authentication
+│   │   ├── auth_local_data_source.dart  // Local caching using GetStorage
+│   ├── repositories/
+│   │   ├── auth_repository_impl.dart  // Implementation of AuthRepository using remote & local sources
 │
 │── domain/
-│ ├── entities/
-│ │ ├── user.dart // Domain User entity
-│ ├── repositories/
-│ │ ├── auth_repository.dart // Abstract contract for authentication operations
+│   ├── entities/
+│   │   ├── user.dart  // Domain User entity
+│   ├── repositories/
+│   │   ├── auth_repository.dart  // Abstract contract for authentication operations
 │
 │── presentation/
-│ ├── cubits/
-│ │ ├── auth/
-│ │ │ ├── auth_state.dart // States: initial, loading, authenticated, error
-│ │ │ ├── auth_cubit.dart // Cubit managing authentication logic
-│ ├── pages/
-│ │ ├── onboarding/
-│ │ │ ├── onboarding_page.dart // Onboarding screen for first-time users
-│ │ ├── auth/
-│ │ │ ├── login_page.dart // Login page using AuthCubit; navigates with GoRouter
-│ │ ├── home/
-│ │ │ ├── home_page.dart // Home page shown when user is authenticated
+│   ├── cubits/
+│   │   ├── auth/
+│   │   │   ├── auth_state.dart  // States: initial, loading, authenticated, error
+│   │   │   ├── auth_cubit.dart  // Cubit managing authentication logic
+│   ├── pages/
+│   │   ├── onboarding/
+│   │   │   ├── onboarding_page.dart  // Onboarding screen for first-time users
+│   │   ├── auth/
+│   │   │   ├── login_page.dart  // Login page using AuthCubit; navigates with GoRouter
+│   │   ├── home/
+│   │   │   ├── home_page.dart  // Home page shown when user is authenticated
 │
-└── main.dart // App entry point; initializes DI and routes via GoRouter
+│── utils/
+│   ├── common/
+│   │   ├── common_methods.dart
+│   │   ├── common_widgets.dart
+│   ├── constants/
+│   │   ├── app_text.dart
+│   │   ├── colors.dart
+│   │   ├── constants.dart
+│   │   ├── enums.dart
+│   │   ├── icon_strings.dart
+│   │   ├── image_strings.dart
+│   │   ├── sizes.dart
+│   ├── debug/
+│   │   ├── log_reader.dart
+│   ├── device/
+│   │   ├── device_utility.dart
+│   ├── exceptions/
+│   │   ├── exceptions.dart
+│   │   ├── firebase_exceptions.dart
+│   │   ├── format_exceptions.dart
+│   │   ├── firebase_auth_exceptions.dart
+│   │   ├── platform_exceptions.dart
+│   ├── helpers/
+│   │   ├── snack_bar.dart
+│   ├── validators/
+│   │   ├── validator.dart
+│   ├── theme/
+│   │   ├── theme.dart  // Main theme configuration
+│   │   ├── custom_theme/
+│   │   │   ├── appbar_theme.dart
+│   │   │   ├── bottom_navigation_theme.dart
+│   │   │   ├── bottom_sheet_theme.dart
+│   │   │   ├── card_theme.dart
+│   │   │   ├── checkbox_theme.dart
+│   │   │   ├── chip_theme.dart
+│   │   │   ├── elevated_button_theme.dart
+│   │   │   ├── icon_button_theme.dart
+│   │   │   ├── input_decoration_theme.dart
+│   │   │   ├── outlined_button_theme.dart
+│   │   │   ├── search_bar_theme.dart
+│   │   │   ├── text_button_theme.dart
+│   │   │   ├── text_theme.dart
+│
+└── main.dart  // App entry point; initializes DI and routes via GoRouter
+
 -------------------------------******--------------------------------
 
 ## Features
