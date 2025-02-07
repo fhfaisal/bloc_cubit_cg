@@ -154,7 +154,8 @@ lib/
 -------------------------------******--------------------------------
 1. **Clone the repository:**
 
-   ```bash
+   ```bash git clone https://github.com/fhfaisal/bloc_cubit_cg.git
+gh repo clone fhfaisal/bloc_cubit_cg
 
 HTTPS:- git clone https://github.com/fhfaisal/bloc_cubit_cg.git
 GithubCLI:- gh repo clone fhfaisal/bloc_cubit_cg
