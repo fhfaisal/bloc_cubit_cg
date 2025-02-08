@@ -32,6 +32,16 @@ class AppValidators {
     }
     return null;
   }
+  static String? validateConfirmPassword(String? confirmPassword, String? originalPassword) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return 'Confirm Password is required.';
+    }
+    // Check if confirm password matches the original password
+    if (confirmPassword != originalPassword) {
+      return 'Passwords do not match.';
+    }
+    return null;
+  }
 
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {

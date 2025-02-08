@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../core/error/exceptions.dart';
+import '../../core/network/api_client.dart';
 import '../models/user_model.dart';
 
 /// Defines the contract for remote authentication operations.
@@ -18,69 +19,40 @@ abstract class AuthRemoteDataSource {
   Future<void> signOut();
 }
 
-/// Concrete implementation of [AuthRemoteDataSource] using Dio.
-class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  final Dio dio;
 
-  AuthRemoteDataSourceImpl({required this.dio});
+/// Concrete implementation of [AuthRemoteDataSource] using ApiClient.
+class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+  final ApiClient apiClient; // Use ApiClient instead of Dio
+
+  AuthRemoteDataSourceImpl({required this.apiClient});
 
   @override
   Future<UserModel> signIn(String email, String password) async {
-    try {
-      final response = await dio.post(
-        ApiConstants.login,
-        data: {
-          "email": email,
-          "password": password,
-        },
-      );
-
-      if (kDebugMode) {
-        print("Response Data: ${response.data}");
-      } // Debugging Line
-
-      if (response.statusCode == 200) {
-        return UserModel.fromJson(response.data);
-      } else {
-        throw ServerException(response.data['message'] ?? "Failed to sign in.");
-      }
-    } on DioException catch (e) {
-      print("Dio Error: ${e.response?.data}"); // Debugging Line
-      throw ServerException(e.response?.data['message'] ?? "Server error during sign in.");
-    }
+    final response = await apiClient.postRequest(
+      ApiConstants.login,
+      data: {
+        "email": email,
+        "password": password,
+      },
+    );
+    return UserModel.fromJson(response);
   }
 
   @override
   Future<UserModel> signUp(String email, String password) async {
-    try {
-      final response = await dio.post(
-        ApiConstants.register,
-        data: jsonEncode({
-          "email": email,
-          "password": password,
-        }),
-      );
+    final response = await apiClient.postRequest(
+      ApiConstants.register,
+      data: {
+        "email": email,
+        "password": password,
+      },
+    );
 
-      // Assuming a 201 status code for successful signup.
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return UserModel.fromJson(response.data);
-      } else {
-        throw ServerException(response.data['message'] ?? "Failed to sign up.");
-      }
-    } on DioException catch (e) {
-      throw ServerException(e.response?.data['message'] ?? "Server error during sign up.");
-    }
+    return UserModel.fromJson(response);
   }
 
   @override
   Future<void> signOut() async {
-    try {
-      final response = await dio.post("/auth/signout");
-      if (response.statusCode != 200) {
-        throw ServerException(response.data['message'] ?? "Failed to sign out.");
-      }
-    } on DioException catch (e) {
-      throw ServerException(e.response?.data['message'] ?? "Server error during sign out.");
-    }
+    await apiClient.postRequest("/auth/signout");
   }
 }

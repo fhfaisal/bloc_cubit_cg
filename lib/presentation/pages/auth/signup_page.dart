@@ -1,66 +1,149 @@
+import 'package:cubit_bloc/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/routes/app_routes.dart';
+import '../../../utils/constants/app_text.dart';
+import '../../../utils/constants/sizes.dart';
+import '../../../utils/helpers/snackBar.dart';
+import '../../../utils/validators/validators.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/auth/auth_state.dart';
+import 'widgets/login_header.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController nameController = TextEditingController();
+  State<SignUpPage> createState() => _SignUpPageState();
+}
 
+class _SignUpPageState extends State<SignUpPage> {
+  final GlobalKey<FormState> validator = GlobalKey<FormState>();
+  final email = TextEditingController();
+  final password = TextEditingController();
+  final confirmPassword = TextEditingController();
+  bool showPassword = true;
+  bool cShowPassword = true;
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Sign Up")),
+      //appBar: AppBar(title: const Text("Sign Up")),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
             // Save login state
-            GetStorage().write('isLoggedIn', true);
+            GetStorage().write(AppConstants.isLogin, true);
 
             // Navigate and clear all previous routes
             context.replaceNamed(AppRoutes.home);
           } else if (state is AuthError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
+            SnackBarMessage.error(context: context, message: state.message);
           }
         },
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                TextField(
-                  controller: nameController,
-                  decoration: const InputDecoration(labelText: "Full Name"),
-                ),
-                TextField(
-                  controller: emailController,
-                  decoration: const InputDecoration(labelText: "Email"),
-                ),
-                TextField(
-                  controller: passwordController,
-                  decoration: const InputDecoration(labelText: "Password"),
-                  obscureText: true,
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<AuthCubit>().signUp(
-                      emailController.text,
-                      passwordController.text,
-                    );
-                  },
-                  child: const Text("Sign Up"),
-                ),
-              ],
+            padding: const EdgeInsets.all(AppSizes.defaultSpace24),
+            child: Form(
+              key: validator,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  /// Logo Title & Subtitle with Hero Animation
+                  Hero(
+                    tag: 'login_header',
+                    child: const AppLoginHeader(),
+                  ),
+                  const SizedBox(height: AppSizes.spaceBtwInputFields12),
+
+                  /// Email Field
+                  TextFormField(
+                    controller: email,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) => AppValidators.validateEmail(value),
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Iconsax.direct_right),
+                      labelText: AppText.email,
+                    ),
+                  ),
+                  SizedBox(height: AppSizes.spaceBtwInputFields6),
+
+                  /// Password Field
+                  TextFormField(
+                    controller: password,
+                    obscureText: showPassword,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) => AppValidators.validatePassword(value),
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Iconsax.password_check),
+                      labelText: AppText.password,
+                      suffixIcon: IconButton(
+                        onPressed: () => setState(() => showPassword = !showPassword),
+                        icon: Icon(
+                          showPassword ? Iconsax.eye_slash : Iconsax.eye,
+                          semanticLabel: showPassword ? 'Hide Password' : 'Show Password',
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: AppSizes.spaceBtwInputFields6),
+
+                  /// Password Field
+                  TextFormField(
+                    controller: confirmPassword,
+                    obscureText: cShowPassword,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) => AppValidators.validateConfirmPassword(confirmPassword.text, password.text),
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Iconsax.password_check),
+                      labelText: AppText.cPassword,
+                      suffixIcon: IconButton(
+                        onPressed: () => setState(() => cShowPassword = !cShowPassword),
+                        icon: Icon(
+                          showPassword ? Iconsax.eye_slash : Iconsax.eye,
+                          semanticLabel: showPassword ? 'Hide Password' : 'Show Password',
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: AppSizes.spaceBtwInputFields12),
+
+                  /// Login Button
+                  ElevatedButton(
+                    onPressed: () {
+                      if (!validator.currentState!.validate()) {
+                        SnackBarMessage.warning(
+                          context: context,
+                          message: AppText.requiredFieldMsg,
+                        );
+                        return;
+                      }
+                      context.read<AuthCubit>().signUp(
+                            email.text,
+                            password.text,
+                          );
+                    },
+                    child: Text(AppText.signUp.toUpperCase()),
+                  ),
+                  SizedBox(height: AppSizes.spaceBtwSections32),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(AppText.backToLogin),
+                      TextButton(
+                          onPressed: () {
+                            context.go(AppRoutes.login);
+                          },
+                          child: Text(AppText.login))
+                    ],
+                  )
+                ],
+              ),
             ),
           );
         },

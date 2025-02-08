@@ -1,6 +1,7 @@
 
 import 'package:cubit_bloc/presentation/pages/auth/widgets/login_header.dart';
 import 'package:cubit_bloc/utils/constants/colors.dart';
+import 'package:cubit_bloc/utils/constants/constants.dart';
 import 'package:cubit_bloc/utils/constants/sizes.dart';
 import 'package:cubit_bloc/utils/helpers/snackBar.dart';
 import 'package:cubit_bloc/utils/language/gen_l10n/app_localizations.dart';
@@ -17,85 +18,212 @@ import '../../../utils/validators/validators.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/auth/auth_state.dart';
 
+// class LoginPage extends StatefulWidget {
+//   const LoginPage({super.key});
+//
+//   @override
+//   State<LoginPage> createState() => _LoginPageState();
+// }
+// ///Variables
+// GlobalKey<FormState> validator = GlobalKey<FormState>();
+// final email = TextEditingController();
+// final password = TextEditingController();
+// bool showPassword = true;
+// bool remember = false;
+//
+// class _LoginPageState extends State<LoginPage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     final loc=AppLocalizations.of(context)!;
+//     final dark = AppHelperFunction.isDarkMode(context);
+//     return Scaffold(
+//       appBar: AppBar(title: Text(loc.login)),
+//       body: BlocConsumer<AuthCubit, AuthState>(
+//         listener: (context, state) {
+//           if (state is AuthAuthenticated) {
+//             GetStorage().write('isLoggedIn', true);
+//             // Navigate and clear all previous routes
+//             context.replaceNamed(AppRoutes.home);
+//           } else if (state is AuthError) {
+//             SnackBarMessage.warning(context: context, message: state.message);
+//           }
+//         },
+//         builder: (context, state) {
+//           return Padding(
+//             padding: const EdgeInsets.all(AppSizes.defaultSpace24),
+//             child: Form(
+//               key: validator,
+//               autovalidateMode: AutovalidateMode.onUserInteraction,
+//               child: Column(
+//                 spacing: AppSizes.spaceBtwInputFields12,
+//                 crossAxisAlignment: CrossAxisAlignment.center,
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   ///Logo Title & Subtitle
+//                   const AppLoginHeader(),
+//
+//                   ///Email
+//                   TextFormField(
+//                     controller: email,
+//                     validator: (value) => AppValidators.validateEmail(value),
+//                     decoration: const InputDecoration(prefixIcon: Icon(Iconsax.direct_right), labelText: AppText.email),
+//                   ),
+//                   SizedBox(height: AppSizes.spaceBtwInputFields6),
+//                   ///Password
+//                   TextFormField(
+//                     controller: password,
+//                     obscureText: showPassword,
+//                     validator: (value) => AppValidators.validatePassword(value),
+//                     //onChanged: (value) => AppValidators.validatePassword(value),
+//                     decoration: InputDecoration(
+//                         prefixIcon: const Icon(Iconsax.password_check),
+//                         labelText: AppText.password,
+//                         suffixIcon: IconButton(
+//                           onPressed: () =>setState(()=> showPassword = !showPassword),
+//                           icon: Icon(showPassword ? Iconsax.eye_slash : Iconsax.eye),
+//
+//                         )),
+//                   ),
+//                   const SizedBox(height: AppSizes.spaceBtwInputFields6),
+//                   ElevatedButton(
+//                     onPressed: () {
+//                       if(!validator.currentState!.validate()) {
+//                         SnackBarMessage.error(context: context, message: AppText.requiredFieldMsg,);
+//                         return;
+//                       };
+//                       context.read<AuthCubit>().signIn(
+//                         email.text,
+//                         password.text,
+//                       );
+//                     },
+//                     child: Text(AppText.login.toUpperCase()),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-///Variables
-GlobalKey<FormState> validator = GlobalKey<FormState>();
-final email = TextEditingController();
-final password = TextEditingController();
-bool showPassword = true;
-bool remember = false;
 
 class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<FormState> validator = GlobalKey<FormState>();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  bool showPassword = true;
+  bool remember = false;
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final loc=AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context)!;
     final dark = AppHelperFunction.isDarkMode(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text(loc.login)),
+      //appBar: AppBar(title: Text(loc.login)),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
-            GetStorage().write('isLoggedIn', true);
-            // Navigate and clear all previous routes
+            GetStorage().write(AppConstants.isLogin, true);
             context.replaceNamed(AppRoutes.home);
           } else if (state is AuthError) {
             SnackBarMessage.warning(context: context, message: state.message);
           }
         },
         builder: (context, state) {
+          if (state is AuthLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
           return Padding(
             padding: const EdgeInsets.all(AppSizes.defaultSpace24),
             child: Form(
               key: validator,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
-                spacing: AppSizes.spaceBtwInputFields12,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ///Logo Title & Subtitle
-                  const AppLoginHeader(),
+                  /// Logo Title & Subtitle with Hero Animation
+                  Hero(
+                    tag: 'login_header',
+                    child: const AppLoginHeader(),
+                  ),
+                  const SizedBox(height: AppSizes.spaceBtwInputFields12),
 
-                  ///Email
+                  /// Email Field
                   TextFormField(
                     controller: email,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) => AppValidators.validateEmail(value),
-                    decoration: const InputDecoration(prefixIcon: Icon(Iconsax.direct_right), labelText: AppText.email),
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Iconsax.direct_right),
+                      labelText: AppText.email,
+                    ),
                   ),
                   SizedBox(height: AppSizes.spaceBtwInputFields6),
-                  ///Password
+
+                  /// Password Field
                   TextFormField(
                     controller: password,
                     obscureText: showPassword,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) => AppValidators.validatePassword(value),
-                    //onChanged: (value) => AppValidators.validatePassword(value),
                     decoration: InputDecoration(
-                        prefixIcon: const Icon(Iconsax.password_check),
-                        labelText: AppText.password,
-                        suffixIcon: IconButton(
-                          onPressed: () =>setState(()=> showPassword = !showPassword),
-                          icon: Icon(showPassword ? Iconsax.eye_slash : Iconsax.eye),
-                        )),
+                      prefixIcon: const Icon(Iconsax.password_check),
+                      labelText: AppText.password,
+                      suffixIcon: IconButton(
+                        onPressed: () => setState(() => showPassword = !showPassword),
+                        icon: Icon(
+                          showPassword ? Iconsax.eye_slash : Iconsax.eye,
+                          semanticLabel: showPassword ? 'Hide Password' : 'Show Password',
+                        ),
+                      ),
+                    ),
                   ),
-                  const SizedBox(height: AppSizes.spaceBtwInputFields6),
+                  const SizedBox(height: AppSizes.spaceBtwInputFields12),
+
+                  /// Login Button
                   ElevatedButton(
                     onPressed: () {
-                      if(!validator.currentState!.validate()) {
-                        SnackBarMessage.error(context: context, message: AppText.requiredFieldMsg,);
+                      if (!validator.currentState!.validate()) {
+                        SnackBarMessage.warning(
+                          context: context,
+                          message: AppText.requiredFieldMsg,
+                        );
                         return;
-                      };
+                      }
                       context.read<AuthCubit>().signIn(
                         email.text,
                         password.text,
                       );
                     },
-                    child: Text(AppText.login.toUpperCase()),
+                    child: Text(AppText.signIn.toUpperCase()),
                   ),
+                  SizedBox(height: AppSizes.spaceBtwSections32),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(AppText.haveAnyAccount),
+                      TextButton(onPressed: (){
+                        context.push(AppRoutes.signing);
+                      }, child: Text(AppText.createAccount))
+                    ],
+                  )
                 ],
               ),
             ),

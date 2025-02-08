@@ -20,7 +20,7 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await authRepository.signIn(email, password);
     result.fold(
           (failure) => emit(AuthError(failure.message)),
-          (user) => emit(AuthAuthenticated(user)),
+          (user) => emit(AuthAuthenticated(user: user)),
     );
   }
 
@@ -32,7 +32,7 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await authRepository.signUp(email, password);
     result.fold(
           (failure) => emit(AuthError(failure.message)),
-          (user) => emit(AuthAuthenticated(user)),
+          (user) => emit(AuthAuthenticated(user:user)),
     );
   }
 
