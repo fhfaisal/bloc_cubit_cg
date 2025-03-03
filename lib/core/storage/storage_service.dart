@@ -6,29 +6,33 @@ import '../../data/models/user_model.dart';
 import '../../domain/entities/user.dart';
 
 class StorageService {
+  // Instance of GetStorage for handling local storage
   final GetStorage _appStorage = GetStorage();
 
+  // Initialize GetStorage before using it
   Future<void> init() async {
     await GetStorage.init();
   }
 
-  // Secure storage for tokens
+  // Securely store the authentication token
   Future<void> saveAuthToken(String token) async {
-    await _appStorage.write(AppStore.authToken,token);
+    await _appStorage.write(AppStore.authToken, token);
   }
 
+  // Retrieve the stored authentication token
   Future<String?> getAuthToken() async {
     return _appStorage.read(AppStore.authToken);
   }
 
+  // Remove the stored authentication token
   Future<void> clearAuthToken() async {
     await _appStorage.remove(AppStore.authToken);
   }
 
-  // General storage for user data
+  // Store user data in local storage
   Future<void> saveUserData(UserModel user) async {
     await _appStorage.write(AppStore.userData, {
-      'id': user.user!.id,
+      'id': user.user!.id, // Ensure user object is not null before accessing fields
       'email': user.user!.email,
       'account_type': user.user!.accountType,
       'name': user.user!.name,
@@ -37,10 +41,14 @@ class StorageService {
     });
   }
 
+  // Retrieve stored user data and reconstruct the User object
   Future<User?> getUserData() async {
     final userData = _appStorage.read(AppStore.userData);
     final token = await getAuthToken();
+
+    // Return null if no user data or token is found
     if (userData == null || token == null) return null;
+
     return User(
       id: userData['id'],
       email: userData['email'],
@@ -48,10 +56,31 @@ class StorageService {
       name: userData['name'],
       firstName: userData['first_name'],
       lastName: userData['last_name'],
-      token: token,
+      token: token, // Attach the token for user authentication
     );
   }
 
+  // Set the first-time launch flag
+  Future<void> setFirstTime(bool isFirstTime) async {
+    await _appStorage.write(AppStore.isFirstTime, isFirstTime);
+  }
+
+  // Check if it's the first time the app is launched
+  bool isFirstTime() {
+    return _appStorage.read(AppStore.isFirstTime) ?? true;
+  }
+
+  // Set the login status
+  Future<void> setLoggedIn(bool isLoggedIn) async {
+    await _appStorage.write(AppStore.isLoggedIn, isLoggedIn);
+  }
+
+  // Check if the user is logged in
+  bool isLoggedIn() {
+    return _appStorage.read(AppStore.isLoggedIn) ?? false;
+  }
+
+  // Clear all stored data, including user data and authentication token
   Future<void> clearAllData() async {
     await _appStorage.erase();
   }

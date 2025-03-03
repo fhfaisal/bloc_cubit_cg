@@ -1,4 +1,5 @@
-import 'package:cubit_bloc/utils/constants/constants.dart';
+
+import 'package:cubit_bloc/core/storage/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
@@ -6,10 +7,10 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/routes/app_routes.dart';
-import '../../../utils/constants/app_text.dart';
-import '../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/snackBar.dart';
-import '../../../utils/validators/validators.dart';
+import '../../../core/utils/constants/app_text.dart';
+import '../../../core/utils/constants/sizes.dart';
+import '../../../core/utils/helpers/snackBar.dart';
+import '../../../core/utils/validators/validators.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/auth/auth_state.dart';
 import 'widgets/login_header.dart';
@@ -28,6 +29,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final confirmPassword = TextEditingController();
   bool showPassword = true;
   bool cShowPassword = true;
+  final storage=StorageService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
         listener: (context, state) {
           if (state is AuthAuthenticated) {
             // Save login state
-            GetStorage().write(AppConstants.isLogin, true);
-
+            storage.setLoggedIn(true);
             // Navigate and clear all previous routes
             context.replaceNamed(AppRoutes.home);
           } else if (state is AuthError) {

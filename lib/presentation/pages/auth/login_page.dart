@@ -1,4 +1,6 @@
 
+import 'package:cubit_bloc/core/storage/storage_constants.dart';
+import 'package:cubit_bloc/core/storage/storage_service.dart';
 import 'package:cubit_bloc/presentation/pages/auth/widgets/login_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +29,7 @@ final email = TextEditingController();
 final password = TextEditingController();
 bool showPassword = true;
 bool remember = false;
+final StorageService storage=StorageService();
 
 class _LoginPageState extends State<LoginPage> {
   @override
@@ -37,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
-            GetStorage().write('isLoggedIn', true);
+            storage.setLoggedIn(true);
             // Navigate and clear all previous routes
             context.replaceNamed(AppRoutes.home);
           } else if (state is AuthError) {

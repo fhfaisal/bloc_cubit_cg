@@ -1,5 +1,6 @@
 import 'package:cubit_bloc/core/routes/app_routes.dart';
 import 'package:cubit_bloc/core/storage/storage_constants.dart';
+import 'package:cubit_bloc/core/storage/storage_service.dart';
 import 'package:cubit_bloc/core/utils/constants/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,8 +17,8 @@ class OnboardingPage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            final storage = GetStorage();
-            storage.write(AppStore.isFirstTime, false);
+            final storage = StorageService();
+            storage.setFirstTime(false);
             context.go(AppRoutes.login); // Navigate to login
           },
           child: Text(AppText.loginSubTitle),
