@@ -1,7 +1,6 @@
 import 'package:cubit_bloc/presentation/cubits/auth/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/di/injection_container.dart';
 import 'core/routes/app_router.dart';
@@ -47,14 +46,14 @@ class _MyAppState extends State<MyApp> {
           Locale('en'),
           Locale('bn'),
         ],
-        localizationsDelegates: [
-          /// [AppLocalization] present in -------- .dart_tool/flutter_gen/gen_l10n ------- if it is missing run this in your terminal[flutter gen-l10n]
-          /// then IMPORT [import 'package:flutter_gen/gen_l10n/app_localizations.dart';]
-          // AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
+        // localizationsDelegates: [
+        //   /// [AppLocalization] present in -------- .dart_tool/flutter_gen/gen_l10n ------- if it is missing run this in your terminal[flutter gen-l10n]
+        //   /// then IMPORT [import 'package:flutter_gen/gen_l10n/app_localizations.dart';]
+        //   AppLocalizations.delegate,
+        //   GlobalMaterialLocalizations.delegate,
+        //   GlobalWidgetsLocalizations.delegate,
+        //   GlobalCupertinoLocalizations.delegate,
+        // ],
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
