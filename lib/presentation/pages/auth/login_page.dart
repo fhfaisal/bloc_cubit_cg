@@ -1,9 +1,5 @@
 
 import 'package:cubit_bloc/presentation/pages/auth/widgets/login_header.dart';
-import 'package:cubit_bloc/utils/constants/colors.dart';
-import 'package:cubit_bloc/utils/constants/sizes.dart';
-import 'package:cubit_bloc/utils/helpers/snackBar.dart';
-import 'package:cubit_bloc/utils/language/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
@@ -11,9 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/routes/app_routes.dart';
-import '../../../utils/constants/app_text.dart';
-import '../../../utils/helpers/helper_function.dart';
-import '../../../utils/validators/validators.dart';
+import '../../../core/utils/constants/app_text.dart';
+import '../../../core/utils/constants/sizes.dart';
+import '../../../core/utils/helpers/helper_function.dart';
+import '../../../core/utils/helpers/snackBar.dart';
+import '../../../core/utils/validators/validators.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/auth/auth_state.dart';
 
@@ -33,10 +31,9 @@ bool remember = false;
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    final loc=AppLocalizations.of(context)!;
     final dark = AppHelperFunction.isDarkMode(context);
     return Scaffold(
-      appBar: AppBar(title: Text(loc.login)),
+      appBar: AppBar(title: Text(AppText.login)),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {

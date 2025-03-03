@@ -1,5 +1,5 @@
 // lib/core/storage/storage_service.dart
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:cubit_bloc/core/storage/storage_constants.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../data/models/user_model.dart';
@@ -7,7 +7,6 @@ import '../../domain/entities/user.dart';
 
 class StorageService {
   final GetStorage _appStorage = GetStorage();
-  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   Future<void> init() async {
     await GetStorage.init();
@@ -15,20 +14,20 @@ class StorageService {
 
   // Secure storage for tokens
   Future<void> saveAuthToken(String token) async {
-    await _secureStorage.write(key: 'auth_token', value: token);
+    await _appStorage.write(AppStore.authToken,token);
   }
 
   Future<String?> getAuthToken() async {
-    return await _secureStorage.read(key: 'auth_token');
+    return _appStorage.read(AppStore.authToken);
   }
 
   Future<void> clearAuthToken() async {
-    await _secureStorage.delete(key: 'auth_token');
+    await _appStorage.remove(AppStore.authToken);
   }
 
   // General storage for user data
   Future<void> saveUserData(UserModel user) async {
-    await _appStorage.write('user_data', {
+    await _appStorage.write(AppStore.userData, {
       'id': user.user!.id,
       'email': user.user!.email,
       'account_type': user.user!.accountType,
@@ -39,11 +38,9 @@ class StorageService {
   }
 
   Future<User?> getUserData() async {
-    final userData = _appStorage.read('user_data');
+    final userData = _appStorage.read(AppStore.userData);
     final token = await getAuthToken();
-
     if (userData == null || token == null) return null;
-
     return User(
       id: userData['id'],
       email: userData['email'],
@@ -57,6 +54,5 @@ class StorageService {
 
   Future<void> clearAllData() async {
     await _appStorage.erase();
-    await _secureStorage.deleteAll();
   }
 }

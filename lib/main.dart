@@ -1,12 +1,11 @@
 import 'package:cubit_bloc/presentation/cubits/auth/auth_cubit.dart';
-import 'package:cubit_bloc/utils/language/gen_l10n/app_localizations.dart';
-import 'package:cubit_bloc/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/di/injection_container.dart';
 import 'core/routes/app_router.dart';
+import 'core/utils/theme/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupDependencies();
@@ -51,7 +50,7 @@ class _MyAppState extends State<MyApp> {
         localizationsDelegates: [
           /// [AppLocalization] present in -------- .dart_tool/flutter_gen/gen_l10n ------- if it is missing run this in your terminal[flutter gen-l10n]
           /// then IMPORT [import 'package:flutter_gen/gen_l10n/app_localizations.dart';]
-          AppLocalizations.delegate,
+          // AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,

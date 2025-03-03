@@ -38,7 +38,6 @@ dependencies:
   get_it: ^8.0.3
   get_storage: ^2.1.1 #A fast, extra light and synchronous key-value in memory, which backs up data to disk at each operation. It is written entirely in Dart and easily integrates with Get framework of Flutter.
   connectivity_plus: ^5.0.2 #This plugin allows Flutter apps to discover network connectivity types that can be used.
-  flutter_secure_storage: ^9.2.4 #A Flutter plugin to store data in secure storage:
 
 dev_dependencies:
   flutter_test:

@@ -1,10 +1,10 @@
 class AppSizes {
   // Padding and margin sizes
-  static const double xs = 4.0;
-  static const double sm = 8.0;
-  static const double md = 16.0;
-  static const double lg = 24.0;
-  static const double xL = 32.0;
+  static const double xs_4 = 4.0;
+  static const double sm_8 = 8.0;
+  static const double md_16 = 16.0;
+  static const double lg_24 = 24.0;
+  static const double xL32 = 32.0;
 
 // Icon sizes
   static const double icon12 = 12.0;

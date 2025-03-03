@@ -1,6 +1,7 @@
-import 'package:cubit_bloc/utils/constants/constants.dart';
+
 import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
+import '../../constants/constants.dart';
 
 class AppTextTheme {
   AppTextTheme._();
