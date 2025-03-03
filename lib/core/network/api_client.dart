@@ -7,9 +7,9 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../error/exceptions.dart';
 import 'api_constants.dart';
 /// API client with secure authentication, network handling, and pretty logging.
-class ApiClient {
+class DioClient {
   late final Dio _dio;
-  ApiClient() {
+  DioClient() {
     _dio = Dio();
 
     _dio
