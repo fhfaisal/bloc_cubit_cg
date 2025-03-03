@@ -1,5 +1,5 @@
-
 import 'package:cubit_bloc/core/network/api_client.dart';
+import 'package:cubit_bloc/domain/usecases/auth/auth_usecase.dart';
 import 'package:cubit_bloc/presentation/cubits/auth/auth_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
@@ -27,28 +27,32 @@ Future<void> setupDependencies() async {
   /// Data Sources
   /// ============================
   sl.registerLazySingleton<AuthRemoteDataSource>(
-        () => AuthRemoteDataSourceImpl(sl<DioClient>()),
+    () => AuthRemoteDataSourceImpl(sl<DioClient>()),
   );
 
   sl.registerLazySingleton<AuthLocalDataSource>(
-        () => AuthLocalDataSourceImpl(storage: sl<GetStorage>()),
+    () => AuthLocalDataSourceImpl(storage: sl<GetStorage>()),
   );
 
   /// ============================
   /// Repositories
   /// ============================
   sl.registerLazySingleton<AuthRepository>(
-        () => AuthRepositoryImpl(
+    () => AuthRepositoryImpl(
       remoteDataSource: sl<AuthRemoteDataSource>(),
       localDataSource: sl<AuthLocalDataSource>(),
     ),
   );
 
   /// ============================
+  /// UseCases
+  /// ============================
+  sl.registerLazySingleton<AuthUseCase>(() => AuthUseCase(sl<AuthRepository>()));
+
+  /// ============================
   /// Bloc / Cubit
   /// ============================
   sl.registerFactory(
-        () => AuthCubit(authRepository: sl<AuthRepository>()),
+    () => AuthCubit(sl<AuthUseCase>()),
   );
 }
-
