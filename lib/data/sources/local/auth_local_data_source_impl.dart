@@ -1,19 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 
-import '../models/user_model.dart';
-
-/// Defines the contract for local authentication data operations.
-abstract class AuthLocalDataSource {
-  /// Caches the [user] locally.
-  Future<void> cacheUser(UserModel user);
-
-  /// Clears the locally cached user data.
-  Future<void> clearUserData();
-
-  /// Checks if user data exists in local storage.
-  Future<bool> isUserLoggedIn();
-}
-
+import '../../models/user_model.dart';
+import 'auth_local_data_source.dart';
 /// Concrete implementation of [AuthLocalDataSource] using GetStorage.
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   final GetStorage storage;

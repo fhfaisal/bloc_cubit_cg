@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../utils/constants/app_text.dart';
-import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/helpers/helper_function.dart';
+import '../../../../core/utils/constants/app_text.dart';
+import '../../../../core/utils/constants/sizes.dart';
+import '../../../../core/utils/helpers/helper_function.dart';
 
 class AppLoginHeader extends StatelessWidget {
   const AppLoginHeader({
@@ -17,7 +17,7 @@ class AppLoginHeader extends StatelessWidget {
       children: [
         //Image(height: 150, image: AssetImage(dark ? AppImageStrings.logo : AppImageStrings.logoDark)),
         Text(AppText.loginTitle, style: Theme.of(context).textTheme.headlineMedium),
-        const SizedBox(height: AppSizes.sm),
+        const SizedBox(height: AppSizes.sm_8),
         Text(AppText.loginSubTitle, style: Theme.of(context).textTheme.bodyMedium),
       ],
     );
