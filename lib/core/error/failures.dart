@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
@@ -52,4 +53,34 @@ class AuthenticationFailure extends Failure {
 // Fallback failure
 class UnknownFailure extends Failure {
   const UnknownFailure([super.message = "Unknown Error Occurred"]);
+}
+
+Failure handleError(dynamic error) {
+  if (error is DioException) {
+    if (error.response != null) {
+      final statusCode = error.response!.statusCode;
+      final message = error.response!.data['message'] ?? "Something went wrong.";
+      switch (statusCode) {
+        case 400:
+          return BadRequestFailure(message);
+        case 401:
+          return UnauthorizedFailure(message);
+        case 403:
+          return ForbiddenFailure(message);
+        case 404:
+          return NotFoundFailure(message);
+        case 408:
+          return TimeoutFailure(message);
+        case 500:
+          return ServerFailure(message);
+        default:
+          return UnknownFailure(message);
+      }
+    } else {
+      // No response means it's likely a connection error
+      return NetworkFailure("No Internet Connection");
+    }
+  }
+  // If it's not a DioException, return an unknown failure
+  return UnknownFailure("Unexpected error occurred.");
 }

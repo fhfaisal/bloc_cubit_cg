@@ -61,8 +61,8 @@ class StorageService {
   }
 
   // Set the first-time launch flag
-  Future<void> setFirstTime(bool isFirstTime) async {
-    await _appStorage.write(AppStore.isFirstTime, isFirstTime);
+  setFirstTime(bool isFirstTime) {
+     _appStorage.write(AppStore.isFirstTime, isFirstTime);
   }
 
   // Check if it's the first time the app is launched

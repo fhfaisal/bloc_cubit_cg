@@ -1,5 +1,7 @@
 import 'package:cubit_bloc/core/storage/storage_constants.dart';
+import 'package:cubit_bloc/core/storage/storage_service.dart';
 import 'package:cubit_bloc/core/utils/constants/app_text.dart';
+import 'package:cubit_bloc/domain/entities/user.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:get_storage/get_storage.dart';
@@ -11,6 +13,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final storage =StorageService();
     return Scaffold(
       appBar: AppBar(
         title: Text(''),
@@ -18,7 +21,7 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              GetStorage().write(AppStore.isLoggedIn, false);
+              storage.clearAllData();
               context.replaceNamed(AppRoutes.login);
             },
           ),
@@ -49,7 +52,7 @@ class HomePage extends StatelessWidget {
           // ),
         ],
       ),
-      body: Center(child: Text('')),
+      body: Center(child: Text(storage.getUserData().toString())),
     );
   }
 }
