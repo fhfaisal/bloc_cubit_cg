@@ -32,6 +32,7 @@ class AppSizes {
   static const double fontSize22 = 22.0;
   static const double fontSize24 = 24.0;
   static const double fontSize26 = 26.0;
+  static const double fontSize32 = 32.0;
 
 // Button sizes
   static const double buttonHeight52 = 52;
