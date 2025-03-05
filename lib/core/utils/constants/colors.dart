@@ -5,9 +5,6 @@ class AppColors {
 
   /// App Basic Colors
   static const Color primary = Color(0xFF4b68ff);
-  static Color primary50 = const Color(0xFF0C7B93).withOpacity(0.50);
-  static Color primary10 = const Color(0xFF0C7B93).withOpacity(0.10);
-  static Color primary5 = const Color(0xFF0C7B93).withOpacity(0.05);
   static const Color secondary = Color(0xFFF3EC63);
   static const Color accent = Color(0xFFb0c7ff);
 
@@ -30,11 +27,6 @@ class AppColors {
   static const Color shadowColor = Color(0x33142850);
   ///Search background
   static const Color searchBg= Color(0xfff3f8f9);
-
-  /// Background Container Colors
-  static const Color lightContainer = Color(0xFFF6F6F6);
-  static Color darkContainer = AppColors.dark.withOpacity(0.1);
-
   /// Button Colors
   static const Color buttonPrimary = Color(0xFF4b68ff);
   static const Color buttonSecondary = Color(0xFF6C757D);

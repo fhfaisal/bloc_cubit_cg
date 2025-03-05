@@ -6,6 +6,12 @@ class AppSizes {
   static const double lg_24 = 24.0;
   static const double xL32 = 32.0;
 
+  //elevation
+  static const double elevation2 = 2;
+  static const double elevation3 = 3;
+  static const double elevation4 = 4;
+  static const double elevation8 = 8;
+
 // Icon sizes
   static const double icon12 = 12.0;
   static const double icon16 = 16.0;
@@ -15,15 +21,17 @@ class AppSizes {
   static const double icon64 = 64.0;
 
 // Font sizes
-  static const double fontSizeSm = 14.0;
-  static const double fontSizeMd = 16.0;
-  static const double fontSizeLg = 18.0;
-// Padding
-  static const double padding4 = 4.0;
-  static const double padding8 = 8.0;
-  static const double padding12 = 12.0;
-  static const double padding14 = 14.0;
-  static const double padding16 = 16.0;
+  static const double fontSize6 = 6.0;
+  static const double fontSize8 = 8.0;
+  static const double fontSize9 = 9.0;
+  static const double fontSize10 = 10.0;
+  static const double fontSize12 = 12.0;
+  static const double fontSize14 = 14.0;
+  static const double fontSize16 = 16.0;
+  static const double fontSize18 = 18.0;
+  static const double fontSize22 = 22.0;
+  static const double fontSize24 = 24.0;
+  static const double fontSize26 = 26.0;
 
 // Button sizes
   static const double buttonHeight52 = 52;
@@ -31,7 +39,6 @@ class AppSizes {
   static const double buttonHeight18 = 18;
   static const double buttonRadius12 = 12.0;
   static const double buttonWidth52 = 52.0;
-  static const double buttonElevation4 = 4.0;
 
 // AppBar height
   static const double appBarHeight56=56.0;
@@ -41,10 +48,10 @@ class AppSizes {
   static const double imageThumbSize= 80.0;
 
 // Default spacing between sections
+  static const double spaceBtwItems4 = 4.0;
   static const double defaultSpace24 = 24.0;
   static const double spaceBtwItems16 = 16.0;
   static const double spaceBtwItems12 = 12.0;
-  static const double spaceBtwItems4 = 4.0;
   static const double spaceBtwSections32 = 32.0;
 
   // Border radius

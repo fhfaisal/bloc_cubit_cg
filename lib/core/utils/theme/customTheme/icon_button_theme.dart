@@ -1,3 +1,4 @@
+import 'package:cubit_bloc/core/utils/theme/customTheme/text_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
@@ -14,7 +15,7 @@ class AppIconButtonTheme {
       foregroundColor: WidgetStateProperty.all(AppColors.black),
       shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
       //side: MaterialStateProperty.all(const BorderSide(color: AppColors.grey)),
-      textStyle: WidgetStateProperty.all(const TextStyle(fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w600)),
+      textStyle: WidgetStateProperty.all(AppTextTheme.lightTextTheme.titleLarge),
       //padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
     ),
   );
@@ -27,7 +28,7 @@ class AppIconButtonTheme {
       foregroundColor: WidgetStateProperty.all(AppColors.grey),
       shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
       //side: MaterialStateProperty.all(const BorderSide(color: AppColors.grey)),
-      textStyle: WidgetStateProperty.all(const TextStyle(fontSize: 16, color: AppColors.primary, fontWeight: FontWeight.w600)),
+      textStyle:WidgetStateProperty.all(AppTextTheme.darkTextTheme.titleLarge),
       //padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
     ),
   );
