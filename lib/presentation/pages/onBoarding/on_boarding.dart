@@ -21,7 +21,7 @@ class OnboardingPage extends StatelessWidget {
             storage.setFirstTime(false);
             context.go(AppRoutes.login); // Navigate to login
           },
-          child: Text(AppText.loginSubTitle),
+          child: Text('Close'),
         ),
       ),
     );

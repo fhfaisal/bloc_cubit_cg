@@ -1,26 +1,22 @@
-import 'package:get_storage/get_storage.dart';
-
-import '../../models/user_model.dart';
+import 'package:cubit_bloc/core/storage/storage_service.dart';
+import 'package:cubit_bloc/domain/entities/user.dart';
 import 'auth_local_data_source.dart';
 /// Concrete implementation of [AuthLocalDataSource] using GetStorage.
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
-  final GetStorage storage;
-  static const String USER_KEY = 'cached_user';
-
-  AuthLocalDataSourceImpl({required this.storage});
+  final storage=StorageService();
 
   @override
-  Future<void> cacheUser(UserModel user) async {
-    await storage.write(USER_KEY, user.toJson());
+  Future<void> cacheUser(User user) async {
+    await storage.saveUserData(user);
   }
 
   @override
   Future<void> clearUserData() async {
-    await storage.remove(USER_KEY);
+    await storage.clearAllData();
   }
 
   @override
   Future<bool> isUserLoggedIn() async {
-    return storage.hasData(USER_KEY);
+    return storage.isLoggedIn();
   }
 }

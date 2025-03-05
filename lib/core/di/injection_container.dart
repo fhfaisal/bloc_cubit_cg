@@ -26,13 +26,9 @@ Future<void> setupDependencies() async {
   /// ============================
   /// Data Sources
   /// ============================
-  sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(sl<DioClient>()),
-  );
+  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(sl<DioClient>()));
 
-  sl.registerLazySingleton<AuthLocalDataSource>(
-    () => AuthLocalDataSourceImpl(storage: sl<GetStorage>()),
-  );
+  sl.registerLazySingleton<AuthLocalDataSource>(() => AuthLocalDataSourceImpl());
 
   /// ============================
   /// Repositories

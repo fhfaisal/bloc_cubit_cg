@@ -30,14 +30,14 @@ class StorageService {
   }
 
   // Store user data in local storage
-  Future<void> saveUserData(UserModel user) async {
+  Future<void> saveUserData(User user) async {
     await _appStorage.write(AppStore.userData, {
-      'id': user.user!.id, // Ensure user object is not null before accessing fields
-      'email': user.user!.email,
-      'account_type': user.user!.accountType,
-      'name': user.user!.name,
-      'first_name': user.user!.firstName,
-      'last_name': user.user!.lastName,
+      'id': user.id, // Ensure user object is not null before accessing fields
+      'email': user.email,
+      'account_type': user.accountType,
+      'name': user.name,
+      'first_name': user.firstName,
+      'last_name': user.lastName,
     });
   }
 

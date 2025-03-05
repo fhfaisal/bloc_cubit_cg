@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 
-import '../../core/error/exceptions.dart';
 import '../../core/error/failures.dart';
 import '../../core/network/safe_api_call.dart';
 import '../../domain/entities/user.dart';
@@ -22,7 +21,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, User>> signIn(String email, String password) async {
     return safeApiCall<User>(() async {
       final userModel = await remoteDataSource.signIn(email: email, password: password);
-      await localDataSource.cacheUser(userModel);
+      await localDataSource.cacheUser(userModel.user!);
       return userModel.user != null ? userModel.user! : userModel.toEntity();
     });
   }
@@ -30,20 +29,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, User>> signUp(String email, String password) async {
-    try {
-      // Call the remote data source to sign up.
+    return safeApiCall<User>(() async {
       final userModel = await remoteDataSource.signUp(email: email, password: password);
-      // Cache the user locally.
-      await localDataSource.cacheUser(userModel);
-      // Return the domain entity.
-      return Right(userModel.user != null ? userModel.user! : userModel.toEntity());
-    } on ServerException catch (e) {
-      return Left(ServerFailure(e.message));
-    } on AuthenticationException catch (e) {
-      return Left(AuthenticationFailure(e.message));
-    } catch (e) {
-      return Left(UnknownFailure("Unexpected error occurred during sign up."));
-    }
+      await localDataSource.cacheUser(userModel.user!);
+      return userModel.user != null ? userModel.user! : userModel.toEntity();
+    });
   }
 
   @override
