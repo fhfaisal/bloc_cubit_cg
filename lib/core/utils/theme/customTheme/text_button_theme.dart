@@ -1,3 +1,4 @@
+import 'package:cubit_bloc/core/utils/theme/customTheme/text_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
@@ -12,9 +13,9 @@ class AppTextButtonTheme {
     style: ButtonStyle(
       fixedSize: WidgetStateProperty.all(const Size.fromHeight(AppSizes.buttonHeight52)),
       foregroundColor: WidgetStateProperty.all(AppColors.black),
-      shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+      shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.borderRadius12))),
       //side: MaterialStateProperty.all(const BorderSide(color: AppColors.grey)),
-      textStyle: WidgetStateProperty.all(const TextStyle(fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w600,fontFamily: fontFamily)),
+      textStyle: WidgetStateProperty.all(AppTextTheme.lightTextTheme.titleLarge),
       padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
     ),
   );
@@ -24,9 +25,9 @@ class AppTextButtonTheme {
     style: ButtonStyle(
       fixedSize: WidgetStateProperty.all(const Size.fromHeight(AppSizes.buttonHeight52)),
       foregroundColor: WidgetStateProperty.all(AppColors.primary),
-      shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+      shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.borderRadius12))),
       //side: MaterialStateProperty.all(const BorderSide(color: AppColors.grey)),
-      textStyle: WidgetStateProperty.all(const TextStyle(fontSize: 16, color: AppColors.primary, fontWeight: FontWeight.w600,fontFamily: fontFamily)),
+      textStyle: WidgetStateProperty.all(AppTextTheme.darkTextTheme.titleLarge),
       padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
     ),
   );

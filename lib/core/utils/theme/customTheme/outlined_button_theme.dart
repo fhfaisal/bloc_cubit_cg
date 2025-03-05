@@ -1,3 +1,4 @@
+import 'package:cubit_bloc/core/utils/theme/customTheme/text_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
@@ -10,15 +11,15 @@ class AppOutlinedButtonTheme {
   ///Light Theme
   static final lightOutlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      elevation: 1,
+      elevation: AppSizes.elevation2,
       fixedSize: const Size.fromHeight(AppSizes.buttonHeight52),
       foregroundColor: AppColors.black,
       backgroundColor: Colors.transparent,
-      disabledForegroundColor: Colors.grey,
+      disabledForegroundColor: AppColors.grey,
       disabledBackgroundColor: Colors.transparent,
-      side: const BorderSide(color: AppColors.black),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      textStyle: const TextStyle(fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w600,fontFamily: fontFamily),
+      //side: const BorderSide(color: AppColors.black),
+      //padding: const EdgeInsets.symmetric(horizontal: 20),
+      textStyle:  AppTextTheme.lightTextTheme.titleLarge,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
   );
@@ -26,14 +27,14 @@ class AppOutlinedButtonTheme {
   ///DorkTheme
   static final darkOutlinedButtonTheme = OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-    elevation: 0,
+    elevation: AppSizes.elevation2,
     fixedSize: const Size.fromHeight(AppSizes.buttonHeight52),
     foregroundColor: AppColors.white,
     disabledForegroundColor: AppColors.grey,
     disabledBackgroundColor: Colors.transparent,
-    side: const BorderSide(color: AppColors.grey),
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    textStyle: const TextStyle(fontSize: 16, color: AppColors.white, fontWeight: FontWeight.w600,fontFamily: fontFamily),
+    //side: const BorderSide(color: AppColors.grey),
+    //padding: const EdgeInsets.symmetric(horizontal: 20),
+    textStyle: AppTextTheme.darkTextTheme.titleLarge,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
   ));
 }

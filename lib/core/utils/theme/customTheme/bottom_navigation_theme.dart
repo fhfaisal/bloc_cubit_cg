@@ -1,3 +1,4 @@
+import 'package:cubit_bloc/core/utils/theme/customTheme/text_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
@@ -14,9 +15,9 @@ class AppBottomNavigationTheme {
     showSelectedLabels: true,
     showUnselectedLabels: true,
     unselectedIconTheme: const IconThemeData(color: AppColors.primary),
-    unselectedLabelStyle: const TextStyle().copyWith(fontSize: 10.0, fontWeight: FontWeight.w600,color: AppColors.disableText,fontFamily: fontFamily),
+    unselectedLabelStyle: AppTextTheme.lightTextTheme.titleLarge!.copyWith(fontSize: 10.0, fontWeight: FontWeight.w600,color: AppColors.disableText,fontFamily: fontFamily),
     unselectedItemColor:AppColors.disableText ,
-    selectedLabelStyle: const TextStyle().copyWith(fontSize: 10.0, fontWeight: FontWeight.w600, color: AppColors.primary,fontFamily: fontFamily),
+    selectedLabelStyle: AppTextTheme.lightTextTheme.titleLarge!.copyWith(fontSize: 10.0, fontWeight: FontWeight.w600, color: AppColors.primary,fontFamily: fontFamily),
   );
 
   ///DorkTheme
@@ -27,8 +28,8 @@ class AppBottomNavigationTheme {
     showSelectedLabels: true,
     showUnselectedLabels: true,
     unselectedIconTheme: const IconThemeData(color: AppColors.primary),
-    unselectedLabelStyle: const TextStyle().copyWith(fontSize: 10.0, fontWeight: FontWeight.w600,color: AppColors.disableText,fontFamily: fontFamily),
+    unselectedLabelStyle: AppTextTheme.darkTextTheme.titleLarge!.copyWith(fontSize: 10.0, fontWeight: FontWeight.w600,color: AppColors.disableText,fontFamily: fontFamily),
     unselectedItemColor:AppColors.disableText ,
-    selectedLabelStyle: const TextStyle().copyWith(fontSize: 10.0, fontWeight: FontWeight.w600, color: AppColors.primary,fontFamily: fontFamily),
+    selectedLabelStyle:AppTextTheme.darkTextTheme.titleLarge!.copyWith(fontSize: 10.0, fontWeight: FontWeight.w600, color: AppColors.primary,fontFamily: fontFamily),
   );
 }

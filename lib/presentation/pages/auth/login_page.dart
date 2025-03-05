@@ -52,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.all(AppSizes.defaultSpace24),
             child: Form(
               key: validator,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 spacing: AppSizes.spaceBtwInputFields12,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,9 +59,9 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   ///Logo Title & Subtitle
                   const AppLoginHeader(),
-
                   ///Email
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: email,
                     validator: (value) => AppValidators.validateEmail(value),
                     decoration: const InputDecoration(prefixIcon: Icon(Iconsax.direct_right), labelText: AppText.email),
@@ -70,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: AppSizes.spaceBtwInputFields6),
                   ///Password
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: password,
                     obscureText: showPassword,
                     validator: (value) => AppValidators.validatePassword(value),
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                       if(!validator.currentState!.validate()) {
                         SnackBarMessage.error(context: context, message: AppText.requiredFieldMsg,);
                         return;
-                      };
+                      }
                       context.read<AuthCubit>().signIn(
                         email.text,
                         password.text,

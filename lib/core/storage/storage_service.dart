@@ -36,7 +36,7 @@ class StorageService {
       'email': user.email,
       'account_type': user.accountType,
       'name': user.name,
-      'first_name': user.firstName,
+      'first_name': user..firstName,
       'last_name': user.lastName,
     });
   }
@@ -61,8 +61,8 @@ class StorageService {
   }
 
   // Set the first-time launch flag
-  setFirstTime(bool isFirstTime) {
-     _appStorage.write(AppStore.isFirstTime, isFirstTime);
+  Future<void> setFirstTime(bool isFirstTime) async {
+    await _appStorage.write(AppStore.isFirstTime, isFirstTime);
   }
 
   // Check if it's the first time the app is launched
@@ -85,3 +85,5 @@ class StorageService {
     await _appStorage.erase();
   }
 }
+
+

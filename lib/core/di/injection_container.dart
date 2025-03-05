@@ -10,45 +10,32 @@ import '../../data/sources/local/auth_local_data_source_impl.dart';
 import '../../data/sources/remote/auth_remote_data_source.dart';
 import '../../data/sources/remote/auth_remote_data_source_impl.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../utils/theme/cubit/theme_cubit.dart';
 
-final sl = GetIt.instance; // sl = service locator
+/// Service locator instance
+final injector = GetIt.instance;
 
-Future<void> setupDependencies() async {
-  // Initialize local storage before registering dependencies
+Future<void> init() async {
+  //* External Dependencies
   await GetStorage.init();
+  injector
+    ..registerLazySingleton<GetStorage>(GetStorage.new)
+    ..registerLazySingleton<DioClient>(DioClient.new)
 
-  /// ============================
-  /// External Dependencies
-  /// ============================
-  sl.registerLazySingleton<GetStorage>(() => GetStorage());
-  sl.registerLazySingleton<DioClient>(() => DioClient());
+  //* Data Sources
+    ..registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(injector()))
+    ..registerLazySingleton<AuthLocalDataSource>(() => AuthLocalDataSourceImpl())
 
-  /// ============================
-  /// Data Sources
-  /// ============================
-  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(sl<DioClient>()));
+  //* Repositories
+    ..registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
+      remoteDataSource: injector(),
+      localDataSource: injector(),
+    ))
 
-  sl.registerLazySingleton<AuthLocalDataSource>(() => AuthLocalDataSourceImpl());
+  //* UseCases
+    ..registerLazySingleton<AuthUseCase>(() => AuthUseCase(injector()))
 
-  /// ============================
-  /// Repositories
-  /// ============================
-  sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(
-      remoteDataSource: sl<AuthRemoteDataSource>(),
-      localDataSource: sl<AuthLocalDataSource>(),
-    ),
-  );
-
-  /// ============================
-  /// UseCases
-  /// ============================
-  sl.registerLazySingleton<AuthUseCase>(() => AuthUseCase(sl<AuthRepository>()));
-
-  /// ============================
-  /// Bloc / Cubit
-  /// ============================
-  sl.registerFactory(
-    () => AuthCubit(sl<AuthUseCase>()),
-  );
+  //* Cubits
+    ..registerLazySingleton<ThemeCubit>(ThemeCubit.new)
+    ..registerFactory<AuthCubit>(() => AuthCubit(injector()));
 }
