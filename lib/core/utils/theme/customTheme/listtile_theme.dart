@@ -8,12 +8,13 @@ class AppListTileTheme {
   // ListTile theme for Light Mode
   static final lightListTileTheme = ListTileThemeData(
     contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+    tileColor: AppColors.lightGrey,
     horizontalTitleGap: 16.0,
     minLeadingWidth: 40,
     iconColor: AppColors.black,
     textColor: AppColors.black,
     titleTextStyle: AppTextTheme.lightTextTheme.titleMedium,
-    subtitleTextStyle: AppTextTheme.darkTextTheme.bodyMedium,
+    subtitleTextStyle: AppTextTheme.lightTextTheme.bodyMedium,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8.0),
     ),
@@ -22,6 +23,7 @@ class AppListTileTheme {
   // ListTile theme for Dark Mode
   static final darkListTileTheme = ListTileThemeData(
     contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+    tileColor: AppColors.darkerGrey,
     horizontalTitleGap: 16.0,
     minLeadingWidth: 40,
     iconColor: AppColors.white,

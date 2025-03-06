@@ -4,8 +4,8 @@ import 'package:cubit_bloc/core/network/api_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../core/error/exceptions.dart';
-import '../../models/user_model.dart';
+import '../../../../core/error/exceptions.dart';
+import '../../../models/user_model.dart';
 import 'auth_remote_data_source.dart';
 
 /// Concrete implementation of [AuthRemoteDataSource] using Dio.

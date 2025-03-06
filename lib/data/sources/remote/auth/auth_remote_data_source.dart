@@ -3,8 +3,8 @@ import 'package:cubit_bloc/core/network/api_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../core/error/exceptions.dart';
-import '../../models/user_model.dart';
+import '../../../../core/error/exceptions.dart';
+import '../../../models/user_model.dart';
 
 /// Defines the contract for remote authentication operations.
 abstract class AuthRemoteDataSource {

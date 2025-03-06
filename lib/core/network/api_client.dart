@@ -84,7 +84,7 @@ class DioClient {
   Future<dynamic> get(String url, {Map<String, dynamic>? queryParameters}) async {
     try {
       final response = await _dio.get(url, queryParameters: queryParameters);
-      return _handleResponse(response);
+      return response;
     } catch (e) {
       logView("GET request error: $e");
       throw _handleDioError(e as DioException);

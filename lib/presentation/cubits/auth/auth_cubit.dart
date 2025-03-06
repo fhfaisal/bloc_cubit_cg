@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cubit_bloc/domain/usecases/auth/auth_usecase.dart';
 
-import '../../../domain/repositories/auth_repository.dart';
+import '../../../domain/repositories/auth/auth_repository.dart';
 import 'auth_state.dart';
 
 /// [AuthCubit] is responsible for managing authentication state.

@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 
-import '../../core/error/failures.dart';
-import '../../core/network/safe_api_call.dart';
-import '../../domain/entities/user.dart';
-import '../../domain/repositories/auth_repository.dart';
-import '../sources/local/auth_local_data_source.dart';
-import '../sources/remote/auth_remote_data_source.dart';
+import '../../../core/error/failures.dart';
+import '../../../core/network/safe_api_call.dart';
+import '../../../domain/entities/user.dart';
+import '../../../domain/repositories/auth/auth_repository.dart';
+import '../../sources/local/auth_local_data_source.dart';
+import '../../sources/remote/auth/auth_remote_data_source.dart';
 
 /// Concrete implementation of [AuthRepository].
 class AuthRepositoryImpl implements AuthRepository {

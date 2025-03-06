@@ -1,9 +1,10 @@
 import 'package:cubit_bloc/core/utils/theme/cubit/theme_cubit.dart';
 import 'package:cubit_bloc/presentation/cubits/auth/auth_cubit.dart';
+import 'package:cubit_bloc/presentation/cubits/search/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'core/di/injection_container.dart';
+import 'dependency_injection.dart';
 import 'core/routes/app_router.dart';
 import 'core/utils/theme/theme.dart';
 
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
         providers: [
           BlocProvider<ThemeCubit>(create: (context) => injector<ThemeCubit>()),
           BlocProvider<AuthCubit>(create: (context) => injector<AuthCubit>()),
+          BlocProvider<SearchCubit>(create: (context) => injector<SearchCubit>()),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(builder: (context, themeState) {
           return MaterialApp.router(
